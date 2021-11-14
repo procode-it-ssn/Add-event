@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" integrity="sha512-wnea99uKIC3TJF7v4eKk4Y+lMz2Mklv18+r4na2Gn1abDRPPOeef95xTzdwGD9e6zXJBteMIhZ1+68QC5byJZw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script>
+        var closeBox = ()=>{console.log('hi');document.querySelector('.alertbox').style.display='none';}
+    </script>
+</head>
+<body>
+    <body>
+        {%if message%}
+        <div class="w-3/6 mx-auto my-3 bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative alertbox" role="alert">
+  <span class="block sm:inline">{{message}}</span>
+  <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+    <svg onclick="closeBox()" class="fill-current h-6 w-6 text-blue-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+  </span>
+</div>
+{% endif%}
+    <form class="flex flex-col w-2/6 mx-auto my-16 gap-y-2" action="/add" method="POST">
+{% csrf_token %}
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    {{form}}
+    {% for field in form %}
+    <p style="color:red">{{field.errors}}</p>
+    {%endfor%}
+    <input type="submit" class="bg-blue-600 text-white px-20 py-5 cursor-pointer hover:bg-green-500 w-max" value="SUBMIT">
+</form>   
+</body>
+</html>
